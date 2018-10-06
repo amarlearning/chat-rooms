@@ -33,7 +33,8 @@ function disconnect() {
 }
 
 function sendName() {
-    stompClient.send("/app/user", {}, JSON.stringify({'name': $("#name").val()}));
+    stompClient.send("/app/user", {}, JSON.stringify({ 'name': $("#name").val() }));
+    $("#name").val('');
 }
 
 function showGreeting(message) {
@@ -44,7 +45,18 @@ $(function () {
     $("form").on('submit', function (e) {
         e.preventDefault();
     });
-    $( "#connect" ).click(function() { connect(); });
-    $( "#disconnect" ).click(function() { disconnect(); });
-    $( "#send" ).click(function() { sendName(); });
+
+    $(function () {
+        $('#toggle-event').change(function () {
+            if ($(this).prop('checked')) {
+                connect();
+                $('input[type="submit"]').removeAttr('disabled');
+            } else {
+                disconnect();
+            }
+        })
+    })
+    $("#send").click(function () {
+        sendName();
+    });
 });
