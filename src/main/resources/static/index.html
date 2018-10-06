@@ -28,7 +28,7 @@
 				<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
 			</p>
 			<div class="button-link">
-				<a href="https://www.coursera.org/learn/single-page-web-apps-with-angularjs/" target="_blank">
+				<a href="https://github.com/amarlearning/spring-boot-websocket" target="_blank">
 					<button type="button" class="course btn btn-lg btn-success">Github Code Link</button>
 				</a>
 			</div>
@@ -36,8 +36,15 @@
 		</div>
 		<section class="application-section">
 			<div id="main-content" class="container">
+
+				<!-- connect to chat -->
 				<div class="row">
-					<div class="col-md-4">
+					<div class="col-md-7">
+						<div class="form-group">
+							<input type="text" id="name" class="form-control" placeholder="your username..">
+						</div>
+					</div>
+					<div class="col-md-5">
 						<form class="form-inline">
 							<div class="form-group">
 								<input id="toggle-event" class="toggle-switch" type="checkbox" data-toggle="toggle" data-off="Connect to chat!"
@@ -45,21 +52,9 @@
 							</div>
 						</form>
 					</div>
-					<div class="col-md-8">
-						<form class="message-form form-inline">
-							<div class="row">
-								<div class="col-md-10">
-									<div class="form-group message-input">
-										<input style="width: 100%" type="text" id="name" class="form-control" placeholder="type message here..">
-									</div>
-								</div>
-								<div class="col-md-2">
-									<button id="send" class="btn btn-default" type="submit">Send</button>
-								</div>
-							</div>
-						</form>
-					</div>
 				</div>
+
+				<!-- for chat -->
 				<div class="row">
 					<div class="col-md-12">
 						<table id="conversation" class="table table-striped">
@@ -68,15 +63,31 @@
 						</table>
 					</div>
 				</div>
+
+				<!-- new message form -->
+				<div class="row">
+					<form class="message-form form-inline">
+						<div class="row">
+							<div class="col-md-11">
+								<div class="form-group message-input">
+									<input type="text" id="message" class="form-control" placeholder="type message here.." disabled=true>
+								</div>
+							</div>
+							<div class="col-md-1">
+								<button id="send" class="btn btn-default" type="submit" disabled=true>Send</button>
+							</div>
+						</div>
+					</form>
+				</div>
+
 			</div>
 		</section>
 	</div>
 	<footer>
 		<div class="container modified">
 			<p class="text-footer">
-				&copy; <script>document.write(Date().slice(11,15))</script> Amar Prakash Pandey | <a href="http://amarpandey.me/" target="_blank">Website</a> | <a href="https://github.com/amarlearning/Supreme-Angular/tree/master/Week%20One/Assignment"
-				 target="_blank"> <i class="fa fa-github undefined"></i> Source
-					Code
+				&copy;
+				<script>document.write(Date().slice(11, 15))</script> Amar Prakash Pandey | <a href="http://amarpandey.me/" target="_blank">Website</a>
 				</a>
 			</p>
 		</div>

@@ -3,13 +3,6 @@ var stompClient = null;
 function setConnected(connected) {
     $("#connect").prop("disabled", connected);
     $("#disconnect").prop("disabled", !connected);
-    if (connected) {
-        $("#conversation").show();
-    }
-    else {
-        $("#conversation").hide();
-    }
-    $("#userinfo").html("");
 }
 
 function connect() {
@@ -18,8 +11,13 @@ function connect() {
     stompClient.connect({}, function (frame) {
         setConnected(true);
         console.log('Connected: ' + frame);
-        stompClient.subscribe('/topic/user', function (greeting) {
-            showGreeting(JSON.parse(greeting.body).content);
+        sendName();
+        stompClient.subscribe('/topic/user', function (response) {
+            newUserAlert(JSON.parse(response.body).name);
+        });
+        stompClient.subscribe('/topic/message', function (response) {
+            var userResponse = JSON.parse(response.body);
+            showMessage(userResponse.name, userResponse.content, userResponse.time);
         });
     });
 }
@@ -29,16 +27,34 @@ function disconnect() {
         stompClient.disconnect();
     }
     setConnected(false);
+    $("#name").attr('disabled', false);
     console.log("Disconnected");
 }
 
 function sendName() {
     stompClient.send("/app/user", {}, JSON.stringify({ 'name': $("#name").val() }));
-    $("#name").val('');
+    $("#name").attr('disabled', true);
 }
 
-function showGreeting(message) {
-    $("#userinfo").append("<tr><td>" + message + "</td></tr>");
+function sendMessage() {
+    stompClient.send("/app/message", {}, JSON.stringify({ 
+        'name': $("#name").val(),
+        'content': $("#message").val() 
+    }));
+    
+    $("#message").val('');
+}
+
+function newUserAlert(name) {
+    $("#userinfo").append("<tr><td class='new-user-joined'>" + name + "</td></tr>");
+}
+function showMessage(name, message, time) {
+    $("#userinfo").append("<tr><td><span class='name-info'>" + name + "</span> " + message +" <span class='time-info'>" + time + "</span></td ></tr > ");
+}
+
+function toogleMessageFeilds(isConnected) {
+    $('#send').attr('disabled', isConnected);
+    $('#message').attr('disabled', isConnected);
 }
 
 $(function () {
@@ -50,13 +66,13 @@ $(function () {
         $('#toggle-event').change(function () {
             if ($(this).prop('checked')) {
                 connect();
-                $('input[type="submit"]').removeAttr('disabled');
             } else {
                 disconnect();
             }
+            toogleMessageFeilds(!$(this).prop('checked'));
         })
     })
     $("#send").click(function () {
-        sendName();
+        sendMessage();
     });
 });
