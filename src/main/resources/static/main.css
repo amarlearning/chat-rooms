@@ -1,0 +1,102 @@
+body {
+	font-family: 'Cousine', monospace;
+}
+.modified {
+	width: 60%;
+	margin-left: auto;
+	margin-right: auto;
+}
+a {
+	text-decoration: none !important;
+	cursor: pointer;
+}
+header {
+	width: 100%;
+	height: 65px;
+	padding: 0 10px;
+	border-bottom: 1px solid #ddd;
+}
+header > span {
+	font-size: 22px;
+	line-height: 70px;
+	color: #5d5d5d;
+}
+.github-username {
+	float: right;
+	font-size: 16px;
+	line-height: 80px
+}
+.extension {
+	margin-top: 50px;
+	padding-top: 30px;
+}
+.extension > h2 {
+	font-size: 45px;
+	text-align: center;
+	font-weight: 500;
+	font-family: Lato,Helvetica Neue,Helvetica,Arial,sans-serif;
+}
+.extension p {
+	font-size: 18px;
+	color: #555;
+	font-weight: 500;
+	text-align: center;
+	margin-top: 20px;
+}
+i {
+	font-size: 24px !important;
+}
+.button-link {
+	margin-left: auto;
+	margin-right: auto;
+	width: 230px;
+    margin-top: 30px;
+}
+.course {
+	height: 60px;
+}
+.extension > .part {
+	text-align: center;
+	font-size: 13px;
+	color: #777;
+	margin-top: 8px;
+	font-weight: 100;
+}
+.container {
+    padding: 5px !important;
+}
+.toggle-switch {
+    width: 200px;
+}
+.toggle {
+    width: 250px !important;
+    background-color: #CCCCCC;
+}
+.toggle > .toggle-group > .toggle-on {
+    padding-left: 25px;
+}
+.toggle > .toggle-group > .toggle-off {
+    padding-left: 25px;
+}
+footer {
+	width: 100%;
+	height: 100px;
+	border-top: 1px solid #ddd;
+}
+.text-footer {
+	text-align: center;
+	line-height: 70px;
+	color: #575757;
+	font-size: 12px;
+}
+.text-footer > a > i {
+	font-size: 12px !important;
+}
+.text-footer > a:hover {
+	text-decoration: underline !important;
+}
+@media screen and (max-width: 700px) {
+	.modified {
+		width: 100%;
+	}
+}
