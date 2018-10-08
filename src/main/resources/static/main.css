@@ -55,6 +55,10 @@ i{
 .course{
     height:60px
 }
+.custom-badge-button {
+    padding-top: 7px;
+    padding-bottom: 7px;
+}
 .extension>.part{
     text-align:center;
     font-size:13px;
