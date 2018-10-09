@@ -21,10 +21,9 @@ public class ChatController {
 	@MessageMapping("/connect")
 	@SendTo("/topic/connect")
 	public UserResponse connect(@RequestParam String username, SimpMessageHeaderAccessor headerAccessor) {
-
 		headerAccessor.getSessionAttributes().put("username", username);
-
-		return new UserResponse(username, NEW_USER_JOINED, JOIN);
+		UserResponse userResponse = new UserResponse(username, NEW_USER_JOINED, JOIN);
+		return userResponse;
 	}
 
 	@MessageMapping("/message")

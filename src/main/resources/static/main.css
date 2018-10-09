@@ -107,13 +107,19 @@ i{
     display:inline-block;
     float:right;
     color:#aaa;
-    padding-top:15px
+    padding-top:9px;
+    font-size: 12px;
 }
 #userinfo .name-info{
     display:inline-block;
     padding:.75rem;
     background-color:#007bff;
-    color:#fff
+    color:#fff;
+    border-radius: 25px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-top: 2px;
+    margin-bottom: 2px;
 }
 footer{
     height:100px;

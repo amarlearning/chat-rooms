@@ -7,7 +7,7 @@ function setConnected(e) {
 function connect() {
     var e = new SockJS("/websocket-example");
     (stompClient = Stomp.over(e)).connect({}, function (e) {
-        setConnected(!0), console.log("Connected: " + e), 
+        setConnected(!0),
         sendName(),
         stompClient.subscribe("/topic/connect", function (e) {
             var n = JSON.parse(e.body);
@@ -26,9 +26,9 @@ function connect() {
 
 function disconnect() {
     null !== stompClient && stompClient.disconnect(),
-        setConnected(!1),
-        $("#name").attr("disabled", !1),
-        console.log("Disconnected")
+        setConnected(!1);
+    $("#name").attr("disabled", !1);
+    $("#badge").html(0);
 }
 
 function sendName() {
