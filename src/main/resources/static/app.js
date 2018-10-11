@@ -81,5 +81,5 @@ $(function () {
         }else {
             $("#toggle-event").bootstrapToggle('enable');
         }
-    })
+    }), $("#toggle-event").bootstrapToggle('disable');
 });
