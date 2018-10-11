@@ -1,14 +1,15 @@
 var stompClient = null;
 
 function setConnected(e) {
-    $("#connect").prop("disabled", e), $("#disconnect").prop("disabled", !e)
+    $("#connect").prop("disabled", e).delay(1000);
+    $("#disconnect").prop("disabled", !e).delay(1000);
 }
 
 function connect() {
     var e = new SockJS("/websocket-example");
     (stompClient = Stomp.over(e)).connect({}, function (e) {
-        setConnected(!0),
-        sendName(),
+        setConnected(!0);
+        sendName();
         stompClient.subscribe("/topic/connect", function (e) {
             var n = JSON.parse(e.body);
             userAlert(n)
