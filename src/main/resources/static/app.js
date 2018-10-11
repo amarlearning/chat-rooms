@@ -74,5 +74,12 @@ $(function () {
         })
     }), $("#send").click(function () {
         sendMessage()
+    }), $("#name").on('keyup', function () {
+        var object = $(this).val();
+        if (object.length <= 0){
+            $("#toggle-event").bootstrapToggle('disable');
+        }else {
+            $("#toggle-event").bootstrapToggle('enable');
+        }
     })
 });
