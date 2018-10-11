@@ -1,8 +1,8 @@
 var stompClient = null;
 
 function setConnected(e) {
-    $("#connect").prop("disabled", e).delay(1000);
-    $("#disconnect").prop("disabled", !e).delay(1000);
+    $("#connect").prop("disabled", e).delay(2000);
+    $("#disconnect").prop("disabled", !e).delay(2000);
 }
 
 function connect() {
