@@ -82,6 +82,10 @@ i{
 .toggle>.toggle-group>.toggle-off,.toggle>.toggle-group>.toggle-on{
     padding-left:25px
 }
+.toggle[disabled]{
+    background-color: #e9ecef;
+    opacity: 1;
+}
 .message-form{
     width:97%;
     padding-left:3px;
