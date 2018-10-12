@@ -1,53 +1,57 @@
-var stompClient = null;
+var stompClient = null
 
 function setConnected(e) {
-    $("#connect").prop("disabled", e);
+    $("#connect").prop("disabled", e)
     $("#disconnect").prop("disabled", !e)
 }
 
 function connect() {
-    var e = new SockJS("/websocket-example");
-    stompClient = Stomp.over(e);
+    var e = new SockJS("/websocket-example")
+    stompClient = Stomp.over(e)
     stompClient.connect({}, function (e) {
-        setConnected(!0);
-        sendName();
+
         stompClient.subscribe("/topic/connect", function (e) {
-            var n = JSON.parse(e.body);
+            var n = JSON.parse(e.body)
             userAlert(n)
-        }),
+        })
+
         stompClient.subscribe("/topic/message", function (e) {
-            var n = JSON.parse(e.body);
+            var n = JSON.parse(e.body)
             showMessage(n)
-        }),
+        })
+
         stompClient.subscribe("/topic/stats", function (e) {
-            var n = JSON.parse(e.body);
+            var n = JSON.parse(e.body)
             updateBadge(n)
         })
+
+        setConnected(!0)
+        sendName()
     })
 }
 
 function disconnect() {
     null !== stompClient && stompClient.disconnect(),
-        setConnected(!1);
-    $("#name").attr("disabled", !1);
-    $("#badge").html(0);
+        setConnected(!1)
+    $("#name").attr("disabled", !1)
+    $("#badge").html(0)
 }
 
 function sendName() {
-    stompClient.send("/app/connect", {}, $("#name").val());
-    $("#name").attr("disabled", !0);
+    stompClient.send("/app/connect", {}, $("#name").val())
+    $("#name").attr("disabled", !0)
 }
 
 function sendMessage() {
     stompClient.send("/app/message", {}, JSON.stringify({
         name: $("#name").val(),
         content: $("#message").val()
-    }));
-    $("#message").val("");
+    }))
+    $("#message").val("")
 }
 
 function updateBadge(n) {
-    $("#badge").html(n);
+    $("#badge").html(n)
 }
 
 function userAlert(e) {
@@ -75,4 +79,4 @@ $(function () {
     }), $("#send").click(function () {
         sendMessage()
     })
-});
+})
