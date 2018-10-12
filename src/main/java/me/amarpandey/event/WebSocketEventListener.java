@@ -19,21 +19,21 @@ import org.springframework.web.socket.messaging.SessionDisconnectEvent;
 import me.amarpandey.model.UserResponse;
 
 @Component
-public class WebSocketEventListner {
+public class WebSocketEventListener {
 
 	@Autowired
 	SimpMessagingTemplate simpMessagingTemplate;
 
-	private final Logger logger = Logger.getLogger(WebSocketEventListner.class.getName());
+	private final Logger logger = Logger.getLogger(WebSocketEventListener.class.getName());
 
 	@EventListener(SessionConnectEvent.class)
-	public void handleWebsocketConnectListner(SessionConnectEvent event) {
+	public void handleWebsocketConnectListener(SessionConnectEvent event) {
 		count = count + 1;
 		logger.info("Received a new web socket connection : " + now());
 	}
 
 	@EventListener(SessionDisconnectEvent.class)
-	public void handleWebsocketDisconnectListner(SessionDisconnectEvent event) {
+	public void handleWebsocketDisconnectListener(SessionDisconnectEvent event) {
 
 		count = count > 0 ? count - 1 : 0;
 
