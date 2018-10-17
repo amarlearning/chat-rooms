@@ -76,9 +76,9 @@ $(function () {
         sendMessage()
     }), $("#name").on('keyup', function () {
         var object = $(this).val();
-        if (object.length <= 0){
+        if (object.length <= 0) {
             $("#toggle-event").bootstrapToggle('disable');
-        }else {
+        } else {
             $("#toggle-event").bootstrapToggle('enable');
         }
     }), $("#toggle-event").bootstrapToggle('disable');
