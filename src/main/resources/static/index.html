@@ -37,25 +37,30 @@
 
         <section class="application-section">
             <div class="row margin-zero">
-                <input type="checkbox" data-toggle="toggle" data-off="Switch to Private!" data-on="Switch to Public!"
+                <input id="toggle-chat-type" type="checkbox" data-toggle="toggle" data-off="Switch to Private!" data-on="Switch to Public!"
                     data-onstyle="primary" data-offstyle="default" data-height="50">
             </div>
 
             <div id="main-content" class="container">
-                <div class="row">
+
+                <!-- public chat info -->
+                <div id="public" class="row">
+
                     <div class="col-md-5">
                         <div class="form-group">
-                            <input type="text" id="name" class="form-control" placeholder="your username..">
+                            <input type="text" class="name form-control" placeholder="your username.. public">
                         </div>
                     </div>
+
                     <div class="col-md-5">
                         <form class="form-inline">
                             <div class="form-group">
-                                <input id="toggle-event" class="toggle-switch" type="checkbox" data-toggle="toggle"
-                                    data-off="Connect to chat!" data-on="Disconnect Please!">
+                                <input class="toggle-event toggle-switch" type="checkbox" data-toggle="toggle" data-off="Connect to chat!"
+                                    data-on="Disconnect Please!">
                             </div>
                         </form>
                     </div>
+
                     <div class="col-md-2">
                         <div class="form-group">
                             <button type="button" class="btn btn-sm btn-primary custom-badge-button">
@@ -63,7 +68,38 @@
                             </button>
                         </div>
                     </div>
+
                 </div>
+
+                <!-- public chat info -->
+                <div id="private" class="row">
+                    
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <input type="text" class="name form-control" placeholder="your username.. private">
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-5">
+                        <form class="form-inline">
+                            <div class="form-group">
+                                <input class="toggle-event toggle-switch" type="checkbox" data-toggle="toggle" data-off="Connect to chat!"
+                                    data-on="Disconnect Please!">
+                            </div>
+                        </form>
+                    </div>
+                    
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <button type="button" class="btn btn-sm btn-primary custom-badge-button">
+                                Hackers <span id="badge" class="badge">0</span>
+                            </button>
+                        </div>
+                    </div>
+                
+                </div>
+
+                <!-- to show messages -->
                 <div class="row">
                     <div class="col-md-12">
                         <table id="conversation" class="table table-striped">
@@ -71,6 +107,8 @@
                         </table>
                     </div>
                 </div>
+
+                <!-- input field to send messages -->
                 <div class="row">
                     <form class="message-form form-inline">
                         <div class="row">
@@ -87,6 +125,7 @@
                     </form>
                 </div>
             </div>
+
         </section>
     </div>
     <footer>
