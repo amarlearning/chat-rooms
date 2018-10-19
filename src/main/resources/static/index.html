@@ -36,9 +36,14 @@
         </div>
 
         <section class="application-section">
-            <div class="row margin-zero">
-                <input id="toggle-chat-type" type="checkbox" data-toggle="toggle" data-off="Switch to Private!" data-on="Switch to Public!"
-                    data-onstyle="primary" data-offstyle="default" data-height="50">
+            <div class="row margin-zero" style="justify-content: space-between;">
+                
+                <input id="toggle-chat-type" type="checkbox" data-toggle="toggle" data-off="Switch to Private chat!"
+                    data-on="Switch to Public chat!" data-onstyle="primary" data-offstyle="default" data-height="40">
+                
+                <div id="room-code-box" class="float-right" style="display: none; height: 40px;">
+                    <button id="generate-room-code" class="btn btn-warning">Room Code</button>
+                </div>
             </div>
 
             <div id="main-content" class="container">
@@ -48,7 +53,7 @@
 
                     <div class="col-md-5">
                         <div class="form-group">
-                            <input type="text" class="name form-control" placeholder="your username.. public">
+                            <input type="text" class="name form-control" placeholder="username..">
                         </div>
                     </div>
 
@@ -73,22 +78,28 @@
 
                 <!-- public chat info -->
                 <div id="private" class="row">
-                    
-                    <div class="col-md-5">
+
+                    <div class="col-md-2">
                         <div class="form-group">
-                            <input type="text" class="name form-control" placeholder="your username.. private">
+                            <input id="groupid" type="text" class="form-control" title="secret group code" placeholder="groupid.." name="groupid">
                         </div>
                     </div>
-                    
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <input type="text" class="name form-control" placeholder="username.." name="username">
+                        </div>
+                    </div>
+
                     <div class="col-md-5">
                         <form class="form-inline">
                             <div class="form-group">
                                 <input class="toggle-event toggle-switch" type="checkbox" data-toggle="toggle" data-off="Connect to chat!"
-                                    data-on="Disconnect Please!">
+                                    data-on="Disconnect Please!" data-height="37.5">
                             </div>
                         </form>
                     </div>
-                    
+
                     <div class="col-md-2">
                         <div class="form-group">
                             <button type="button" class="btn btn-sm btn-primary custom-badge-button">
@@ -96,7 +107,7 @@
                             </button>
                         </div>
                     </div>
-                
+
                 </div>
 
                 <!-- to show messages -->

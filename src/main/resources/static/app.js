@@ -1,8 +1,11 @@
+var groupid = null;
 var stompClient = null;
+var sendurl = "/app"
+var fetchurl = "/topic"
 var isPrivateModeEnabled = false;
 
 function getName() {
-    if(isPrivateModeEnabled) {
+    if (isPrivateModeEnabled) {
         return $('.name:last').val()
     } else {
         return $('.name:first').val()
@@ -14,8 +17,10 @@ function reset() {
     $('.name').val('')
     $('#userinfo').html('')
     toogleMessageFeilds(true)
-    $('.toggle-event').each(function() {
+    $('#groupid').val('').attr('readonly', false)
+    $('.toggle-event').each(function () {
         $(this).bootstrapToggle('off')
+        $(this).bootstrapToggle('disable');
     });
 }
 
@@ -24,13 +29,18 @@ function private() {
     $('#public').hide();
     $('#private').show();
     isPrivateModeEnabled = true;
+    $('#room-code-box').show()
+    $(".margin-zero > .toggle").css("cssText", "width: 82.7% !important; height: 40px");
 }
 
 function public() {
     reset();
+    groupid = null
     $('#public').show();
     $('#private').hide();
+    $('#room-code-box').hide()
     isPrivateModeEnabled = false;
+    $(".margin-zero > .toggle").css("cssText", "width: 100% !important;height: 40px");
 }
 
 function setConnected(e) {
@@ -41,14 +51,23 @@ function setConnected(e) {
 function connect() {
     var e = new SockJS('/websocket-example');
     stompClient = Stomp.over(e);
+    groupid = $('#groupid').val()
+    if(isPrivateModeEnabled) {
+        sendurl = "/app/" + groupid
+        fetchurl = "/topic/" + groupid
+    } else {
+        sendurl = "/app"
+        fetchurl = "/topic"
+    }
+
     stompClient.connect({}, function (e) {
         setConnected(!0);
         sendName();
-        stompClient.subscribe('/topic/connect', function (e) {
+        stompClient.subscribe(fetchurl + '/connect', function (e) {
             var n = JSON.parse(e.body);
             userAlert(n)
         }),
-            stompClient.subscribe('/topic/message', function (e) {
+            stompClient.subscribe(fetchurl + '/message', function (e) {
                 var n = JSON.parse(e.body);
                 showMessage(n)
             }),
@@ -67,12 +86,12 @@ function disconnect() {
 }
 
 function sendName() {
-    stompClient.send('/app/connect', {}, getName());
+    stompClient.send(sendurl + '/connect', {}, getName());
     $('.name').attr('disabled', !0);
 }
 
 function sendMessage() {
-    stompClient.send('/app/message', {}, JSON.stringify({
+    stompClient.send(sendurl + '/message', {}, JSON.stringify({
         name: getName(),
         content: $('#message').val()
     }));
@@ -96,30 +115,59 @@ function showMessage(e) {
 }
 
 function toogleMessageFeilds(e) {
-    $('#send').attr('disabled', e), 
+    $('#send').attr('disabled', e),
     $('#message').attr('disabled', e)
+    $('#generate-room-code').attr('disabled', !e)
 }
 
 $(function () {
+    $('#private').hide()
+
     $('form').on('submit', function (e) {
         e.preventDefault()
-    }), $(function () {
+    }), 
+
+    $(function () {
         $('.toggle-event').change(function () {
-            $(this).prop('checked') ? connect() : disconnect(), 
+            $(this).prop('checked') ? connect() : disconnect()
             toogleMessageFeilds(!$(this).prop('checked'))
         })
-    }), $(function () {
+    }),
+
+    $(function () {
         $('#toggle-chat-type').change(function () {
             $(this).prop('checked') ? private() : public()
         })
-    }), $('#send').click(function () {
+    }),
+
+    $('#send').click(function () {
         sendMessage()
-    }), $('.name').on('keyup', function () {
+    }), 
+
+    $('.name').on('keyup', function () {
         var object = $(this).val();
         if (object.length <= 0) {
             $('.toggle-event').bootstrapToggle('disable');
         } else {
             $('.toggle-event').bootstrapToggle('enable');
         }
-    }), $('.toggle-event').bootstrapToggle('disable');
+    }),
+
+    $('#private input[type=text]').on('keyup', function () {
+
+        var groupid = $('input[name=groupid]').val().length;
+        var username = $('input[name=username]').val().length;
+
+        if (groupid <= 6 || username <= 0) {
+            $('.toggle-event').bootstrapToggle('disable');
+        } else {
+            $('.toggle-event').bootstrapToggle('enable');
+        }
+    }) 
+
+    $('.toggle-event').bootstrapToggle('disable'),
+
+    $('#generate-room-code').click(function () {
+        $('#groupid').val((new Date().valueOf()).toString(36)).attr('readonly', true)
+    });
 });

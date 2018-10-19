@@ -66,6 +66,7 @@ i{
 .custom-badge-button {
     padding-top: 7px;
     padding-bottom: 7px;
+    width: 110px;
 }
 .extension>.part{
     text-align:center;
