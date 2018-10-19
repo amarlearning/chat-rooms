@@ -2,6 +2,7 @@ package me.amarpandey.event;
 
 import static java.time.LocalDateTime.now;
 import static me.amarpandey.model.ChatDetails.count;
+import static me.amarpandey.model.UserResponse.GroupType.PUBLIC;
 import static me.amarpandey.model.UserResponse.MessageType.LEAVE;
 import static me.amarpandey.utils.Constants.USER_LEFT;
 
@@ -19,21 +20,21 @@ import org.springframework.web.socket.messaging.SessionDisconnectEvent;
 import me.amarpandey.model.UserResponse;
 
 @Component
-public class WebSocketEventListner {
+public class WebSocketEventListener {
 
 	@Autowired
 	SimpMessagingTemplate simpMessagingTemplate;
 
-	private final Logger logger = Logger.getLogger(WebSocketEventListner.class.getName());
+	private final Logger logger = Logger.getLogger(WebSocketEventListener.class.getName());
 
 	@EventListener(SessionConnectEvent.class)
-	public void handleWebsocketConnectListner(SessionConnectEvent event) {
+	public void handleWebsocketConnectListener(SessionConnectEvent event) {
 		count = count + 1;
 		logger.info("Received a new web socket connection : " + now());
 	}
 
 	@EventListener(SessionDisconnectEvent.class)
-	public void handleWebsocketDisconnectListner(SessionDisconnectEvent event) {
+	public void handleWebsocketDisconnectListener(SessionDisconnectEvent event) {
 
 		count = count > 0 ? count - 1 : 0;
 
@@ -42,7 +43,7 @@ public class WebSocketEventListner {
 
 		if (username != null) {
 
-			UserResponse userResponse = new UserResponse(username, USER_LEFT, LEAVE);
+			UserResponse userResponse = new UserResponse(username, USER_LEFT, LEAVE, PUBLIC);
 			simpMessagingTemplate.convertAndSend("/topic/message", userResponse);
 
 		}
