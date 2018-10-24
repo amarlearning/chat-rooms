@@ -95,7 +95,12 @@ function sendMessage() {
         name: getName(),
         content: $('#message').val()
     }));
+    resetMessageField();
+}
+
+function resetMessageField(){
     $('#message').val('');
+    $('#send').attr('disabled',true);
 }
 
 function updateBadge(n) {
@@ -115,7 +120,6 @@ function showMessage(e) {
 }
 
 function toogleMessageFeilds(e) {
-    $('#send').attr('disabled', e),
     $('#message').attr('disabled', e)
     $('#generate-room-code').attr('disabled', !e)
 }
@@ -141,8 +145,19 @@ $(function () {
     }),
 
     $('#send').click(function () {
-        sendMessage()
+        if($('#message').val() !== ""){
+            sendMessage();
+        }
     }), 
+
+    $('#message').on('keyup', function () {
+        var object = $(this).val();
+        if (object.length <= 0) {
+            $('#send').attr('disabled',true);
+        } else {
+            $('#send').attr('disabled',false);
+        }
+    }),
 
     $('.name').on('keyup', function () {
         var object = $(this).val();
