@@ -32,12 +32,14 @@ public class ChatController {
 	@MessageMapping("/message")
 	@SendTo("/topic/message")
 	public UserResponse getMessage(@Payload UserResponse userResponse) {
+		if (userResponse.getContent() != null && userResponse.getContent().trim().length() > 0) {
+			userResponse.setMtype(CHAT);
+			userResponse.setGtype(PUBLIC);
+			userResponse.setTime(valueOf(now()));
 
-		userResponse.setMtype(CHAT);
-		userResponse.setGtype(PUBLIC);
-		userResponse.setTime(valueOf(now()));
-
-		return userResponse;
+			return userResponse;
+		}
+		return null;
 	}
 
 	@MessageMapping("{groupid}/connect")
