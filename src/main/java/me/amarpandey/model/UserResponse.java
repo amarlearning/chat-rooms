@@ -8,11 +8,11 @@ public class UserResponse {
 	GroupType gtype;
 	String time;
 
-	public enum MessageType {
+	public enum MessageType { //Message Type Enum
 		CHAT, JOIN, LEAVE
 	}
 
-	public enum GroupType {
+	public enum GroupType {//Chat group enum
 		PUBLIC, PRIVATE
 	}
 

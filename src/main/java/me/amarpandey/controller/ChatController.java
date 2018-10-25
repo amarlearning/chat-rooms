@@ -36,6 +36,9 @@ public class ChatController {
 		userResponse.setMtype(CHAT);
 		userResponse.setGtype(PUBLIC);
 		userResponse.setTime(valueOf(now()));
+		if(userResponse == ""){
+			 throw new ArithmeticException("Message can't be empty"); 
+		}
 
 		return userResponse;
 	}
