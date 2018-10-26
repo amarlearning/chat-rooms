@@ -8,12 +8,15 @@ import static me.amarpandey.model.UserResponse.MessageType.CHAT;
 import static me.amarpandey.model.UserResponse.MessageType.JOIN;
 import static me.amarpandey.utils.Constants.NEW_USER_JOINED;
 
+import me.amarpandey.exceptions.EmptyMessageException;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
+import org.springframework.messaging.handler.annotation.MessageExceptionHandler;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import me.amarpandey.model.UserResponse;
@@ -31,7 +34,12 @@ public class ChatController {
 
 	@MessageMapping("/message")
 	@SendTo("/topic/message")
-	public UserResponse getMessage(@Payload UserResponse userResponse) {
+	@MessageExceptionHandler(EmptyMessageException.class)
+	public UserResponse getMessage(@Payload UserResponse userResponse) throws EmptyMessageException {
+
+		if (StringUtils.isEmpty(userResponse.getContent())) {
+			throw new EmptyMessageException("No Content");
+		}
 
 		userResponse.setMtype(CHAT);
 		userResponse.setGtype(PUBLIC);
