@@ -91,11 +91,13 @@ function sendName() {
 }
 
 function sendMessage() {
-    stompClient.send(sendurl + '/message', {}, JSON.stringify({
-        name: getName(),
-        content: $('#message').val()
-    }));
-    $('#message').val('');
+    if($('#message').val().length>0){
+        stompClient.send(sendurl + '/message', {}, JSON.stringify({
+            name: getName(),
+            content: $('#message').val()
+        }));
+        $('#message').val('');
+    }
 }
 
 function updateBadge(n) {
