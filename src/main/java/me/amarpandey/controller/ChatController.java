@@ -17,20 +17,20 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import me.amarpandey.model.UserResponse;
+import me.amarpandey.utils.Constants;
 
 @Controller
 public class ChatController {
 
 	@MessageMapping("/connect")
-	@SendTo("/topic/connect")
+  @SendTo(Constants.TOPIC_CONNECT)
 	public UserResponse connect(@RequestParam String username, SimpMessageHeaderAccessor headerAccessor) {
 		headerAccessor.getSessionAttributes().put("username", username);
-		UserResponse userResponse = new UserResponse(username, NEW_USER_JOINED, JOIN, PUBLIC);
-		return userResponse;
+    return new UserResponse(username, NEW_USER_JOINED, JOIN, PUBLIC);
 	}
 
 	@MessageMapping("/message")
-	@SendTo("/topic/message")
+  @SendTo(Constants.TOPIC_MESSAGE)
 	public UserResponse getMessage(@Payload UserResponse userResponse) {
 
 		userResponse.setMtype(CHAT);

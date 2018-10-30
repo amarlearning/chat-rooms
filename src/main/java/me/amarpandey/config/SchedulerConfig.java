@@ -8,6 +8,8 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 
+import me.amarpandey.utils.Constants;
+
 @EnableScheduling
 @Configuration
 public class SchedulerConfig {
@@ -17,6 +19,6 @@ public class SchedulerConfig {
 
 	@Scheduled(fixedDelay = 3000)
 	public void sendAdhocMessages() {
-		template.convertAndSend("/topic/stats", count);
+    template.convertAndSend(Constants.TOPIC_STATS, count);
 	}
 }
