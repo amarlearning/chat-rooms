@@ -4,6 +4,8 @@ import static java.time.LocalDateTime.now;
 import static me.amarpandey.model.ChatDetails.count;
 import static me.amarpandey.model.UserResponse.GroupType.PUBLIC;
 import static me.amarpandey.model.UserResponse.MessageType.LEAVE;
+import static me.amarpandey.utils.Constants.TOPIC_MESSAGE;
+import static me.amarpandey.utils.Constants.USERNAME;
 import static me.amarpandey.utils.Constants.USER_LEFT;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +20,6 @@ import org.springframework.web.socket.messaging.SessionDisconnectEvent;
 import java.util.logging.Logger;
 
 import me.amarpandey.model.UserResponse;
-import me.amarpandey.utils.Constants;
 
 @Component
 public class WebSocketEventListener {
@@ -40,12 +41,12 @@ public class WebSocketEventListener {
 		count = count > 0 ? count - 1 : 0;
 
 		SimpMessageHeaderAccessor headerAccessor = StompHeaderAccessor.wrap(event.getMessage());
-    String username = (String) headerAccessor.getSessionAttributes().get(Constants.USERNAME);
+    String username = (String) headerAccessor.getSessionAttributes().get(USERNAME);
 
 		if (username != null) {
 
 			UserResponse userResponse = new UserResponse(username, USER_LEFT, LEAVE, PUBLIC);
-      simpMessagingTemplate.convertAndSend(Constants.TOPIC_MESSAGE, userResponse);
+      simpMessagingTemplate.convertAndSend(TOPIC_MESSAGE, userResponse);
 
 		}
 

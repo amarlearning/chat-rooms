@@ -1,14 +1,13 @@
 package me.amarpandey.config;
 
 import static me.amarpandey.model.ChatDetails.count;
+import static me.amarpandey.utils.Constants.TOPIC_STATS;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
-
-import me.amarpandey.utils.Constants;
 
 @EnableScheduling
 @Configuration
@@ -19,6 +18,6 @@ public class SchedulerConfig {
 
 	@Scheduled(fixedDelay = 3000)
 	public void sendAdhocMessages() {
-    template.convertAndSend(Constants.TOPIC_STATS, count);
+    template.convertAndSend(TOPIC_STATS, count);
 	}
 }

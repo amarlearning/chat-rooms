@@ -7,6 +7,9 @@ import static me.amarpandey.model.UserResponse.GroupType.PUBLIC;
 import static me.amarpandey.model.UserResponse.MessageType.CHAT;
 import static me.amarpandey.model.UserResponse.MessageType.JOIN;
 import static me.amarpandey.utils.Constants.NEW_USER_JOINED;
+import static me.amarpandey.utils.Constants.TOPIC_CONNECT;
+import static me.amarpandey.utils.Constants.TOPIC_MESSAGE;
+import static me.amarpandey.utils.Constants.USERNAME;
 
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -17,20 +20,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import me.amarpandey.model.UserResponse;
-import me.amarpandey.utils.Constants;
 
 @Controller
 public class ChatController {
 
 	@MessageMapping("/connect")
-  @SendTo(Constants.TOPIC_CONNECT)
+  @SendTo(TOPIC_CONNECT)
 	public UserResponse connect(@RequestParam String username, SimpMessageHeaderAccessor headerAccessor) {
-		headerAccessor.getSessionAttributes().put("username", username);
+    headerAccessor.getSessionAttributes().put(USERNAME, username);
     return new UserResponse(username, NEW_USER_JOINED, JOIN, PUBLIC);
 	}
 
 	@MessageMapping("/message")
-  @SendTo(Constants.TOPIC_MESSAGE)
+  @SendTo(TOPIC_MESSAGE)
 	public UserResponse getMessage(@Payload UserResponse userResponse) {
 
 		userResponse.setMtype(CHAT);
@@ -44,9 +46,8 @@ public class ChatController {
 	@SendTo("/topic/{groupid}/connect")
 	public UserResponse connect(@DestinationVariable String groupid, @RequestParam String username,
 			SimpMessageHeaderAccessor headerAccessor) {
-		headerAccessor.getSessionAttributes().put("username", username);
-		UserResponse userResponse = new UserResponse(username, NEW_USER_JOINED, JOIN, PRIVATE);
-		return userResponse;
+    headerAccessor.getSessionAttributes().put(USERNAME, username);
+    return new UserResponse(username, NEW_USER_JOINED, JOIN, PRIVATE);
 	}
 
 	@MessageMapping("{groupid}/message")
