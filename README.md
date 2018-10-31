@@ -5,7 +5,7 @@
 [![HitCount](http://hits.dwyl.io/amarlearning/spring-boot-websocket.svg)](http://hits.dwyl.io/amarlearning/spring-boot-websocket)
 [![MIT LICENSE](https://img.shields.io/pypi/l/pyzipcode-cli.svg)](http://amarlearning.mit-license.org/)
 
-> Simple chat application using spring boot websockets
+> Real time public/private chat application using spring boot web-sockets
 
 ## Demo
 [![Spring Boot Websocket](https://www.amarpandey.me/img/spring-boot-websocket.png)](https://spring-ws-app.herokuapp.com/)
