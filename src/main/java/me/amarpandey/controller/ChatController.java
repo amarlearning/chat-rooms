@@ -32,20 +32,18 @@ public class ChatController {
 	@MessageMapping("/message")
 	@SendTo("/topic/message")
 	public UserResponse getMessage(@Payload UserResponse userResponse) {
-		if (userResponse.getContent() != null && userResponse.getContent().trim().length() > 0) {
-			userResponse.setMtype(CHAT);
-			userResponse.setGtype(PUBLIC);
-			userResponse.setTime(valueOf(now()));
 
-			return userResponse;
-		}
-		return null;
+		userResponse.setMtype(CHAT);
+		userResponse.setGtype(PUBLIC);
+		userResponse.setTime(valueOf(now()));
+
+		return userResponse;
 	}
 
 	@MessageMapping("{groupid}/connect")
 	@SendTo("/topic/{groupid}/connect")
 	public UserResponse connect(@DestinationVariable String groupid, @RequestParam String username,
-			SimpMessageHeaderAccessor headerAccessor) {
+								SimpMessageHeaderAccessor headerAccessor) {
 		headerAccessor.getSessionAttributes().put("username", username);
 		UserResponse userResponse = new UserResponse(username, NEW_USER_JOINED, JOIN, PRIVATE);
 		return userResponse;
