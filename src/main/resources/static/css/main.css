@@ -27,14 +27,6 @@ header>span{
     line-height:70px;
     color:#5D5D5D
 }
-.margin-zero {
-    margin-right: 5px !important;
-    margin-left: 5px !important;
-}
-.margin-zero > .toggle {
-    margin-bottom: 20px;
-    width: 100% !important;
-}
 .github-username{
     float:right;
     font-size:16px;
@@ -66,7 +58,6 @@ i{
 .custom-badge-button {
     padding-top: 7px;
     padding-bottom: 7px;
-    width: 110px;
 }
 .extension>.part{
     text-align:center;
@@ -90,11 +81,6 @@ i{
 }
 .toggle>.toggle-group>.toggle-off,.toggle>.toggle-group>.toggle-on{
     padding-left:25px
-}
-.toggle[disabled], .toggle[disabled] > .toggle-group > .btn{
-    background-color: #AAAAAA;
-    opacity: 1;
-    cursor: not-allowed !important;
 }
 .message-form{
     width:97%;
