@@ -10,7 +10,7 @@
 	<packaging>war</packaging>
 
 	<name>chat-rooms</name>
-	<description>Demo project for Spring Boot</description>
+	<description>Real time public/private chat application using spring boot web-sockets</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
