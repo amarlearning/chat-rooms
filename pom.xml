@@ -5,11 +5,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>me.amarpandey</groupId>
-	<artifactId>spring-boot-websockets</artifactId>
+	<artifactId>chat-rooms</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 
-	<name>spring-boot-websockets</name>
+	<name>chat-rooms</name>
 	<description>Demo project for Spring Boot</description>
 
 	<parent>
