@@ -1,6 +1,6 @@
 var stompClient = null;
 
-function connect() {
+function connectSocket() {
     var e = new SockJS("/websocket");
     stompClient = Stomp.over(e);
 
@@ -26,12 +26,13 @@ function connect() {
 }
 
 // Close the connection when user disconnects
-function disconnect() {
+function disconnectSocket() {
 
     // Disconnect from the stomp client.
     null !== stompClient && stompClient.disconnect(), setConnected(!1);
 
     $("#name").attr("disabled", !1);
+    $("#name").val("");
     $("#badge").html(0);
 }
 
@@ -66,8 +67,8 @@ function connectedUser(n) {
 }
 
 function setConnected(e) {
-    $("#connect").prop("disabled", e);
-    $("#disconnect").prop("disabled", !e);
+    $("#switch-on-off").prop("disabled", !e);
+    // $("#disconnect").prop("disabled", !e);
 }
 
 // Notify all users about new user or if some user has left the chat.
@@ -85,7 +86,7 @@ function showMessage(message) {
 }
 
 // Toggle fields whenever user connects or disconnects.
-function toggleFields(e) {
+function toggleMessageFields(e) {
     $("#send").attr("disabled", e);
     $("#message").attr("disabled", e);
 }
@@ -97,17 +98,27 @@ function capitalizeFirstLetter(string) {
 
 // Init method
 $(function() {
+
     $("form").on("submit", function(e) {
         e.preventDefault();
-    }),
+    });
 
-    $(function() {
-        $("#toggle-event").change(function() {
-            $(this).prop("checked") ? connect() : disconnect(), toggleFields(!$(this).prop("checked"));
-        })
-    }),
+    // Connect to web-socket server and toggle message fields
+    $("#switch-on-off").change(function() {
+        toggleMessageFields(!$(this).prop("checked"));
+        $(this).prop("checked") ? connectSocket() : disconnectSocket();
+    });
 
+    // Send the message
     $("#send").click(function() {
         sendMessage();
-    })
+    });
+
+    // Enable the connect/disconnect only if name is not empty
+    $('#name').keyup(function(){
+        if($(this).val().length !=0)
+            $('#switch-on-off').attr('disabled', false);
+        else
+            $('#switch-on-off').attr('disabled',true);
+    });
 });

@@ -39,13 +39,13 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <input type="text" id="name" class="form-control" placeholder="your username..">
+                        <input type="text" id="name" class="form-control" placeholder="your username.." maxlength="10">
                     </div>
                 </div>
                 <div class="col-md-5">
                     <form class="form-inline">
                         <div class="form-group">
-                            <input id="toggle-event" class="toggle-switch" type="checkbox" data-toggle="toggle"
+                            <input id="switch-on-off" disabled class="toggle-switch" type="checkbox" data-toggle="toggle"
                                    data-off="Connect to chat!" data-on="Disconnect Please!">
                         </div>
                     </form>
@@ -71,7 +71,7 @@
                         <div class="col-md-11">
                             <div class="form-group">
                                 <input type="text" id="message" class="form-control" placeholder="type message here.."
-                                       disabled="disabled">
+                                       disabled="disabled" maxlength="50">
                             </div>
                         </div>
                         <div class="col-md-1">
