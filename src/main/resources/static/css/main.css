@@ -1,151 +1,191 @@
-.extension p,.extension>h2{
-    font-weight:500;
-    text-align:center
+.extension p,
+.extension>h2 {
+	font-weight: 500;
+	text-align: center
 }
-.button-link,.message-form,.modified{
-    margin-left:auto;
-    margin-right:auto
+
+.button-link,
+.message-form,
+.modified {
+	margin-left: auto;
+	margin-right: auto
 }
-body{
-    font-family:Cousine,monospace
+
+body {
+	font-family: Cousine, monospace
 }
-.modified{
-    width:60%
+
+.modified {
+	width: 60%
 }
-a{
-    text-decoration:none!important;
-    cursor:pointer
+
+a {
+	text-decoration: none!important;
+	cursor: pointer
 }
-header{
-    width:100%;
-    height:65px;
-    padding:0 10px;
-    border-bottom:1px solid #ddd
+
+header {
+	width: 100%;
+	height: 65px;
+	padding: 0 10px;
+	border-bottom: 1px solid #ddd
 }
-header>span{
-    font-size:22px;
-    line-height:70px;
-    color:#5D5D5D
+
+header>span {
+	font-size: 22px;
+	line-height: 70px;
+	color: #5D5D5D
 }
-.github-username{
-    float:right;
-    font-size:16px;
-    line-height:80px
+
+.github-username {
+	float: right;
+	font-size: 16px;
+	line-height: 80px
 }
-.extension{
-    margin-top:50px;
-    padding-top:30px
+
+.extension {
+	margin-top: 50px;
+	padding-top: 30px
 }
-.extension>h2{
-    font-size:45px;
-    font-family:Lato,Helvetica Neue,Helvetica,Arial,sans-serif
+
+.extension>h2 {
+	font-size: 45px;
+	font-family: Lato, Helvetica Neue, Helvetica, Arial, sans-serif
 }
-.extension p{
-    font-size:18px;
-    color:#555;
-    margin-top:20px
+
+.extension p {
+	font-size: 18px;
+	color: #555;
+	margin-top: 20px
 }
-i{
-    font-size:24px!important
+
+i {
+	font-size: 24px!important
 }
-.button-link{
-    width:230px;
-    margin-top:30px
+
+.button-link {
+	width: 230px;
+	margin-top: 30px
 }
-.course{
-    height:60px
+
+.course {
+	height: 60px
 }
+
 .custom-badge-button {
-    padding-top: 7px;
-    padding-bottom: 7px;
+	padding-top: 6px;
+	padding-bottom: 6px;
+	float: right;
+	margin-right: 10px;
 }
-.extension>.part{
-    text-align:center;
-    font-size:13px;
-    color:#777;
-    margin-top:8px;
-    font-weight:100
+
+.extension>.part {
+	text-align: center;
+	font-size: 13px;
+	color: #777;
+	margin-top: 8px;
+	font-weight: 100
 }
-.container{
-    padding:5px!important
+
+.container {
+	padding: 5px!important
 }
-.toggle-switch{
-    width:200px
+
+.toggle-switch {
+	width: 200px
 }
-.toggle{
-    width:320px!important;
-    background-color:#000
+
+.toggle {
+	width: 320px!important;
+	background-color: #000
 }
-.toggle>.toggle-group>.btn{
-    color:#fff
+
+.toggle>.toggle-group>.btn {
+	color: #fff
 }
-.toggle>.toggle-group>.toggle-off,.toggle>.toggle-group>.toggle-on{
-    padding-left:25px
+
+.toggle>.toggle-group>.toggle-off,
+.toggle>.toggle-group>.toggle-on {
+	padding-left: 25px
 }
-.message-form{
-    width:97%;
-    padding-left:3px;
-    padding-right:1px;
-    margin-bottom: 30px
+
+.message-form {
+	width: 97%;
+	padding-left: 3px;
+	padding-right: 1px;
+	margin-bottom: 30px
 }
-.message-form .row input,footer{
-    width:100%
+
+.message-form .row input,
+footer {
+	width: 100%
 }
-.message-form .row{
-    width:100%;
-    padding:0!important
+
+.message-form .row {
+	width: 100%;
+	padding: 0!important
 }
-.message-form .row .col-md-2{
-    padding-left:20px!important
+
+.message-form .row .col-md-2 {
+	padding-left: 20px!important
 }
-#userinfo td{
-    padding-left:0;
-    padding-bottom:0;
-    padding-top:0
+
+#userinfo td {
+	padding-left: 0;
+	padding-bottom: 0;
+	padding-top: 0
 }
-#userinfo .time-info{
-    display:inline-block;
-    float:right;
-    color:#aaa;
-    padding-top:9px;
-    font-size: 12px;
+
+#userinfo .time-info {
+	display: inline-block;
+	float: right;
+	color: #aaa;
+	padding-top: 9px;
+	font-size: 12px;
 }
-#userinfo .name-info{
-    display:inline-block;
-    padding:.75rem;
-    background-color:#007bff;
-    color:#fff;
-    border-radius: 25px;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    margin-top: 2px;
-    margin-bottom: 2px;
+
+#userinfo .name-info {
+	display: inline-block;
+	padding: .75rem;
+	background-color: #007bff;
+	color: #fff;
+	border-radius: 25px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	margin-top: 2px;
+	margin-bottom: 2px;
 }
-footer{
-    height:100px;
-    border-top:1px solid #DDD
+
+footer {
+	height: 100px;
+	border-top: 1px solid #DDD
 }
-.new-user-joined{
-    text-align:center;
-    background-color:#222;
-    color:#fff;
-    padding-top:10px!important;
-    padding-bottom:10px!important
+
+.new-user-joined {
+	text-align: center;
+	background-color: #222;
+	color: #fff;
+	padding-top: 10px!important;
+	padding-bottom: 10px!important
 }
-.text-footer{
-    text-align:center;
-    line-height:70px;
-    color:#575757;
-    font-size:12px
+
+.text-footer {
+	text-align: center;
+	line-height: 70px;
+	color: #575757;
+	font-size: 12px
 }
-.text-footer>a>i{
-    font-size:12px!important
+
+.text-footer>a>i {
+	font-size: 12px!important
 }
-.text-footer>a:hover{
-    text-decoration:underline!important
+
+.text-footer>a:hover {
+	text-decoration: underline!important
 }
-@media screen and (max-width:700px){
-    .modified{
-        width:100%
-    }
+
+@media screen and (max-width:700px) {
+	.modified {
+		width: 100%
+	}
 }

@@ -11,10 +11,13 @@ function connect() {
         stompClient.subscribe("/topic/public", function(e) {
             var message = JSON.parse(e.body);
             if (message.type === 'CHAT') {
-                showMessage(message)
+                showMessage(message);
             } else {
                 notification(message);
             }
+        }),
+        stompClient.subscribe("/topic/stats", function(e) {
+            connectedUser(e.body);
         });
 
         // Then notify everyone (including yourself) that you joined the public topic.
@@ -58,21 +61,21 @@ function sendMessage() {
     $("#message").val("");
 }
 
-function noOfUsersConnected(n) {
+function connectedUser(n) {
     $("#badge").html(n);
 }
 
 function setConnected(e) {
     $("#connect").prop("disabled", e);
-    $("#disconnect").prop("disabled", !e)
+    $("#disconnect").prop("disabled", !e);
 }
 
 // Notify all users about new user or if some user has left the chat.
 function notification(message) {
     if (message.type === 'JOIN') {
-        $("#userinfo").append("<tr><td class='new-user-joined'>" + capitalizeFirstLetter(message.user) + " joined!</td></tr>")
+        $("#userinfo").append("<tr><td class='new-user-joined'>" + capitalizeFirstLetter(message.user) + " joined!</td></tr>");
     } else if (message.type === 'LEAVE') {
-        $("#userinfo").append("<tr><td class='new-user-joined'>" + capitalizeFirstLetter(message.user) + " left!</td></tr>")
+        $("#userinfo").append("<tr><td class='new-user-joined'>" + capitalizeFirstLetter(message.user) + " left!</td></tr>");
     }
 }
 
@@ -83,8 +86,8 @@ function showMessage(message) {
 
 // Toggle fields whenever user connects or disconnects.
 function toggleFields(e) {
-    $("#send").attr("disabled", e),
-        $("#message").attr("disabled", e)
+    $("#send").attr("disabled", e);
+    $("#message").attr("disabled", e);
 }
 
 // utility method to caps first letter of string
@@ -95,16 +98,16 @@ function capitalizeFirstLetter(string) {
 // Init method
 $(function() {
     $("form").on("submit", function(e) {
-        e.preventDefault()
+        e.preventDefault();
     }),
 
     $(function() {
         $("#toggle-event").change(function() {
-            $(this).prop("checked") ? connect() : disconnect(), toggleFields(!$(this).prop("checked"))
+            $(this).prop("checked") ? connect() : disconnect(), toggleFields(!$(this).prop("checked"));
         })
     }),
 
     $("#send").click(function() {
-        sendMessage()
+        sendMessage();
     })
 });
