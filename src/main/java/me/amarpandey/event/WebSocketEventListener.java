@@ -1,6 +1,8 @@
 package me.amarpandey.event;
 
+import me.amarpandey.model.ApplicationStats;
 import me.amarpandey.model.Message;
+import me.amarpandey.utils.Constants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +23,11 @@ public class WebSocketEventListener {
 
 	@EventListener
 	public void handleWebSocketConnectListener(SessionConnectedEvent event) {
+		ApplicationStats.incrementUserCount();
 		logger.info("Received a new web socket connection");
 	}
 
+	@EventListener
 	public void handleWebSocketDisconnectListener(SessionConnectedEvent event) {
 
 		StompHeaderAccessor headerAccessor = StompHeaderAccessor.wrap(event.getMessage());
@@ -31,12 +35,15 @@ public class WebSocketEventListener {
 		String username = headerAccessor.getSessionAttributes().get("username").toString();
 
 		if (username != null) {
+
+			ApplicationStats.decrementUserCount();
+
 			logger.info("User Disconnected : " + username);
 
-			Message message = new Message();
-
-			message.setFrom(username);
-			message.setMessageType(Message.Type.LEAVE);
+			Message message = new Message
+					.Builder(username, Constants.USER_LEFT)
+					.messageType(Message.Type.LEAVE)
+					.build();
 
 			sendingOption.convertAndSend("/topic/public", message);
 		}
