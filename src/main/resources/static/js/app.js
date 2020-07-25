@@ -1,173 +1,124 @@
-var groupid = null;
 var stompClient = null;
-var sendurl = "/app"
-var fetchurl = "/topic"
-var isPrivateModeEnabled = false;
 
-function getName() {
-    if (isPrivateModeEnabled) {
-        return $('.name:last').val()
-    } else {
-        return $('.name:first').val()
-    }
-}
-
-function reset() {
-    disconnect()
-    $('.name').val('')
-    $('#userinfo').html('')
-    toogleMessageFeilds(true)
-    $('#groupid').val('').attr('readonly', false)
-    $('.toggle-event').each(function () {
-        $(this).bootstrapToggle('off')
-        $(this).bootstrapToggle('disable');
-    });
-}
-
-function private() {
-    reset();
-    $('#public').hide();
-    $('#private').show();
-    isPrivateModeEnabled = true;
-    $('#room-code-box').show()
-    $(".margin-zero > .toggle").css("cssText", "width: 82.7% !important; height: 40px");
-}
-
-function public() {
-    reset();
-    groupid = null
-    $('#public').show();
-    $('#private').hide();
-    $('#room-code-box').hide()
-    isPrivateModeEnabled = false;
-    $(".margin-zero > .toggle").css("cssText", "width: 100% !important;height: 40px");
-}
-
-function setConnected(e) {
-    $('#connect').prop('disabled', e);
-    $('#disconnect').prop('disabled', !e)
-}
-
-function connect() {
-    var e = new SockJS('/websocket-example');
+function connectSocket() {
+    var e = new SockJS("/websocket");
     stompClient = Stomp.over(e);
-    groupid = $('#groupid').val()
-    if(isPrivateModeEnabled) {
-        sendurl = "/app/" + groupid
-        fetchurl = "/topic/" + groupid
-    } else {
-        sendurl = "/app"
-        fetchurl = "/topic"
-    }
 
-    stompClient.connect({}, function (e) {
+    stompClient.connect({}, function(e) {
         setConnected(!0);
-        sendName();
-        stompClient.subscribe(fetchurl + '/connect', function (e) {
-            var n = JSON.parse(e.body);
-            userAlert(n)
+
+        // First subscribe to the public topic.
+        stompClient.subscribe("/topic/public", function(e) {
+            var message = JSON.parse(e.body);
+            if (message.type === 'CHAT') {
+                showMessage(message);
+            } else {
+                notification(message);
+            }
         }),
-            stompClient.subscribe(fetchurl + '/message', function (e) {
-                var n = JSON.parse(e.body);
-                showMessage(n)
-            }),
-            stompClient.subscribe('/topic/stats', function (e) {
-                var n = JSON.parse(e.body);
-                updateBadge(n)
-            })
+        stompClient.subscribe("/topic/stats", function(e) {
+            connectedUser(e.body);
+        });
+
+        // Then notify everyone (including yourself) that you joined the public topic.
+        connectUser();
     })
 }
 
-function disconnect() {
-    null !== stompClient && stompClient.disconnect(),
-        setConnected(!1);
-    $('.name').attr('disabled', !1);
-    $('#badge').html(0);
+// Close the connection when user disconnects
+function disconnectSocket() {
+
+    // Disconnect from the stomp client.
+    null !== stompClient && stompClient.disconnect(), setConnected(!1);
+
+    $("#name").attr("disabled", !1);
+    $("#name").val("");
+    $("#badge").html(0);
 }
 
-function sendName() {
-    stompClient.send(sendurl + '/connect', {}, getName());
-    $('.name').attr('disabled', !0);
-}
+// Add the user in the connection
+function connectUser() {
 
-function sendMessage() {
-    stompClient.send(sendurl + '/message', {}, JSON.stringify({
-        name: getName(),
-        content: $('#message').val()
+    stompClient.send("/app/chat.user", {}, JSON.stringify({
+        user: $("#name").val(),
+        text: 'User has joined the chat',
+        type: 'JOIN'
     }));
-    $('#message').val('');
+
+    // Lock the Input field name, since the user has already connected.
+    $("#name").attr("disabled", !0);
 }
 
-function updateBadge(n) {
-    $('#badge').html(n);
+// Send message to the connection
+function sendMessage() {
+
+    stompClient.send("/app/chat.message", {}, JSON.stringify({
+        user: $("#name").val(),
+        text: $("#message").val(),
+        type: 'CHAT'
+    }));
+
+    // Setting the message field empty once the message has been sent.
+    $("#message").val("");
 }
 
-function userAlert(e) {
-    $('#userinfo').append("<tr><td class='new-user-joined'>" + e.name + " " + e.content + "</td></tr>")
+function connectedUser(n) {
+    $("#badge").html(n);
 }
 
-function showMessage(e) {
-    if (e.type === 'LEAVE') {
-        $('#userinfo').append("<tr><td class='new-user-joined'>" + e.name + " " + e.content + "</td></tr>")
-    } else {
-        $('#userinfo').append("<tr><td><span class='name-info'>" + e.name + "</span> " + e.content + " <span class='time-info'>" + e.time + "</span></td ></tr > ")
+function setConnected(e) {
+    $("#switch-on-off").prop("disabled", !e);
+    // $("#disconnect").prop("disabled", !e);
+}
+
+// Notify all users about new user or if some user has left the chat.
+function notification(message) {
+    if (message.type === 'JOIN') {
+        $('#userinfo').append('<tr><td class="user-information">' + capitalizeFirstLetter(message.user) + ' joined!</td></tr>');
+    } else if (message.type === 'LEAVE') {
+        $('#userinfo').append('<tr><td class="user-information">' + capitalizeFirstLetter(message.user) + ' left!</td></tr>');
     }
 }
 
-function toogleMessageFeilds(e) {
-    $('#send').attr('disabled', e),
-    $('#message').attr('disabled', e)
-    $('#generate-room-code').attr('disabled', !e)
+// Function is used to show message in chat
+function showMessage(message) {
+    $("#userinfo").append("<tr><td><span class='name-info'>" + capitalizeFirstLetter(message.user) + "</span> " + message.text + " <span class='time-info'>" + message.time + "</span></td ></tr > ")
 }
 
-$(function () {
-    $('#private').hide()
+// Toggle fields whenever user connects or disconnects.
+function toggleMessageFields(e) {
+    $("#send").attr("disabled", e);
+    $("#message").attr("disabled", e);
+}
 
-    $('form').on('submit', function (e) {
-        e.preventDefault()
-    }), 
+// utility method to caps first letter of string
+function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
 
-    $(function () {
-        $('.toggle-event').change(function () {
-            $(this).prop('checked') ? connect() : disconnect()
-            toogleMessageFeilds(!$(this).prop('checked'))
-        })
-    }),
+// Init method
+$(function() {
 
-    $(function () {
-        $('#toggle-chat-type').change(function () {
-            $(this).prop('checked') ? private() : public()
-        })
-    }),
+    $("form").on("submit", function(e) {
+        e.preventDefault();
+    });
 
-    $('#send').click(function () {
-        sendMessage()
-    }), 
+    // Connect to web-socket server and toggle message fields
+    $("#switch-on-off").change(function() {
+        toggleMessageFields(!$(this).prop("checked"));
+        $(this).prop("checked") ? connectSocket() : disconnectSocket();
+    });
 
-    $('.name').on('keyup', function () {
-        var object = $(this).val();
-        if (object.length <= 0) {
-            $('.toggle-event').bootstrapToggle('disable');
-        } else {
-            $('.toggle-event').bootstrapToggle('enable');
-        }
-    }),
+    // Send the message
+    $("#send").click(function() {
+        sendMessage();
+    });
 
-    $('#private input[type=text]').on('keyup', function () {
-
-        var groupid = $('input[name=groupid]').val().length;
-        var username = $('input[name=username]').val().length;
-
-        if (groupid <= 6 || username <= 0) {
-            $('.toggle-event').bootstrapToggle('disable');
-        } else {
-            $('.toggle-event').bootstrapToggle('enable');
-        }
-    }) 
-
-    $('.toggle-event').bootstrapToggle('disable'),
-
-    $('#generate-room-code').click(function () {
-        $('#groupid').val((new Date().valueOf()).toString(36)).attr('readonly', true)
+    // Enable the connect/disconnect only if name is not empty
+    $('#name').keyup(function(){
+        if($(this).val().length !=0)
+            $('#switch-on-off').attr('disabled', false);
+        else
+            $('#switch-on-off').attr('disabled',true);
     });
 });

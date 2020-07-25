@@ -26,21 +26,18 @@ hs_err_pid*
 *.iml
 *.ipr
 *.iws
-*.jar
 *.sw?
 *~
 .#*
 .*.md.html
 .DS_Store
 .classpath
-.factorypath
 .gradle
 .idea
 .metadata
 .project
 .recommenders
 .settings
-.springBeans
 /build
 /code
 MANIFEST.MF
@@ -63,8 +60,6 @@ secrets.yml
 .gradletasknamecache
 .sts4-cache
 
-
-.metadata
 bin/
 tmp/
 *.tmp
@@ -74,7 +69,6 @@ tmp/
 local.properties
 .settings/
 .loadpath
-.recommenders
 
 # External tool builders
 .externalToolBuilders/
