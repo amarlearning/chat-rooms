@@ -5,6 +5,7 @@ public class Message {
 	private String user;
 	private String text;
 	private Type type;
+	private String time;
 
 	public Message() {
 	}
@@ -13,6 +14,7 @@ public class Message {
 		this.user = builder.user;
 		this.text = builder.text;
 		this.type = builder.type;
+		this.time = builder.time;
 	}
 
 	public String getUser() {
@@ -39,6 +41,14 @@ public class Message {
 		this.type = type;
 	}
 
+	public String getTime() {
+		return time;
+	}
+
+	public void setTime(String time) {
+		this.time = time;
+	}
+
 	public enum Type {
 		CHAT, JOIN, LEAVE
 	}
@@ -47,14 +57,20 @@ public class Message {
 		private String user;
 		private String text;
 		private Type type;
+		private String time;
 
 		public Builder(String user, String text) {
 			this.user = user;
 			this.text = text;
 		}
 
-		public Builder messageType(Type type) {
+		public Builder ofType(Type type) {
 			this.type = type;
+			return this;
+		}
+
+		public Builder atTime(String time) {
+			this.time = time;
 			return this;
 		}
 

@@ -73,9 +73,9 @@ function setConnected(e) {
 // Notify all users about new user or if some user has left the chat.
 function notification(message) {
     if (message.type === 'JOIN') {
-        $("#userinfo").append("<tr><td class='new-user-joined'>" + capitalizeFirstLetter(message.user) + " joined!</td></tr>");
+        $('#userinfo').append('<tr><td class="user-information">' + capitalizeFirstLetter(message.user) + ' joined!</td></tr>');
     } else if (message.type === 'LEAVE') {
-        $("#userinfo").append("<tr><td class='new-user-joined'>" + capitalizeFirstLetter(message.user) + " left!</td></tr>");
+        $('#userinfo').append('<tr><td class="user-information">' + capitalizeFirstLetter(message.user) + ' left!</td></tr>');
     }
 }
 

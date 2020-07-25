@@ -16,10 +16,9 @@ import org.springframework.web.socket.messaging.SessionDisconnectEvent;
 @Component
 public class WebSocketEventListener {
 
+	private static final Logger logger = LoggerFactory.getLogger(WebSocketEventListener.class);
 	@Autowired
 	SimpMessagingTemplate template;
-
-	private static final Logger logger = LoggerFactory.getLogger(WebSocketEventListener.class);
 
 	@EventListener
 	public void handleWebSocketConnectListener(SessionConnectedEvent event) {
@@ -45,7 +44,7 @@ public class WebSocketEventListener {
 
 			Message message = new Message
 					.Builder(username, Constants.USER_LEFT)
-					.messageType(Message.Type.LEAVE)
+					.ofType(Message.Type.LEAVE)
 					.build();
 
 			// Notify everyone in the chat about user the left user.
