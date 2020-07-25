@@ -25,12 +25,6 @@ function connect() {
 // Close the connection when user disconnects
 function disconnect() {
 
-    // Notifying everyone that you disconnected.
-    stompClient.send("/app/chat.addUser", {}, JSON.stringify({
-            from: $("#name").val(),
-            type: 'LEAVE'
-        }));
-
     // Disconnect from the stomp client.
     null !== stompClient && stompClient.disconnect(), setConnected(!1);
 
@@ -41,8 +35,9 @@ function disconnect() {
 // Add the user in the connection
 function connectUser() {
 
-    stompClient.send("/app/chat.addUser", {}, JSON.stringify({
-        from: $("#name").val(),
+    stompClient.send("/app/chat.user", {}, JSON.stringify({
+        user: $("#name").val(),
+        text: 'User has joined the chat',
         type: 'JOIN'
     }));
 
@@ -53,8 +48,8 @@ function connectUser() {
 // Send message to the connection
 function sendMessage() {
 
-    stompClient.send("/app/chat.sendMessage", {}, JSON.stringify({
-        from: $("#name").val(),
+    stompClient.send("/app/chat.message", {}, JSON.stringify({
+        user: $("#name").val(),
         text: $("#message").val(),
         type: 'CHAT'
     }));
@@ -75,15 +70,15 @@ function setConnected(e) {
 // Notify all users about new user or if some user has left the chat.
 function notification(message) {
     if (message.type === 'JOIN') {
-        $("#userinfo").append("<tr><td class='new-user-joined'>" + capitalizeFirstLetter(message.from) + " joined!</td></tr>")
+        $("#userinfo").append("<tr><td class='new-user-joined'>" + capitalizeFirstLetter(message.user) + " joined!</td></tr>")
     } else if (message.type === 'LEAVE') {
-        $("#userinfo").append("<tr><td class='new-user-joined'>" + capitalizeFirstLetter(message.from) + " left!</td></tr>")
+        $("#userinfo").append("<tr><td class='new-user-joined'>" + capitalizeFirstLetter(message.user) + " left!</td></tr>")
     }
 }
 
 // Function is used to show message in chat
 function showMessage(message) {
-    $("#userinfo").append("<tr><td><span class='name-info'>" + capitalizeFirstLetter(message.from) + "</span> " + message.text + " <span class='time-info'>" + message.time + "</span></td ></tr > ")
+    $("#userinfo").append("<tr><td><span class='name-info'>" + capitalizeFirstLetter(message.user) + "</span> " + message.text + " <span class='time-info'>" + message.time + "</span></td ></tr > ")
 }
 
 // Toggle fields whenever user connects or disconnects.

@@ -11,6 +11,7 @@ import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.messaging.SessionConnectedEvent;
+import org.springframework.web.socket.messaging.SessionDisconnectEvent;
 
 @Component
 public class WebSocketEventListener {
@@ -28,7 +29,7 @@ public class WebSocketEventListener {
 	}
 
 	@EventListener
-	public void handleWebSocketDisconnectListener(SessionConnectedEvent event) {
+	public void handleWebSocketDisconnectListener(SessionDisconnectEvent event) {
 
 		StompHeaderAccessor headerAccessor = StompHeaderAccessor.wrap(event.getMessage());
 

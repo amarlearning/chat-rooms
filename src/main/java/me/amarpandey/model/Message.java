@@ -2,14 +2,41 @@ package me.amarpandey.model;
 
 public class Message {
 
-	private String from;
+	private String user;
 	private String text;
 	private Type type;
 
+	public Message() {
+	}
+
 	public Message(Builder builder) {
-		this.from = builder.from;
+		this.user = builder.user;
 		this.text = builder.text;
 		this.type = builder.type;
+	}
+
+	public String getUser() {
+		return user;
+	}
+
+	public void setUser(String user) {
+		this.user = user;
+	}
+
+	public String getText() {
+		return text;
+	}
+
+	public void setText(String text) {
+		this.text = text;
+	}
+
+	public Type getType() {
+		return type;
+	}
+
+	public void setType(Type type) {
+		this.type = type;
 	}
 
 	public enum Type {
@@ -17,12 +44,12 @@ public class Message {
 	}
 
 	public static class Builder {
-		private String from;
+		private String user;
 		private String text;
 		private Type type;
 
-		public Builder(String from, String text) {
-			this.from = from;
+		public Builder(String user, String text) {
+			this.user = user;
 			this.text = text;
 		}
 
