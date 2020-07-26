@@ -68,7 +68,6 @@ function connectedUser(n) {
 
 function setConnected(e) {
     $("#switch-on-off").prop("disabled", !e);
-    // $("#disconnect").prop("disabled", !e);
 }
 
 // Notify all users about new user or if some user has left the chat.
@@ -111,7 +110,9 @@ $(function() {
 
     // Send the message
     $("#send").click(function() {
-        sendMessage();
+        if($('#message').val().length != 0) {
+            sendMessage();
+        }
     });
 
     // Enable the connect/disconnect only if name is not empty
