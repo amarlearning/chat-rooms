@@ -6,8 +6,8 @@
 
     <groupId>me.amarpandey</groupId>
     <artifactId>chat-rooms</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <packaging>war</packaging>
+    <version>0.0.1</version>
+    <packaging>jar</packaging>
 
     <name>chat-rooms</name>
     <description>Real time public/private chat application using spring boot web-sockets</description>
