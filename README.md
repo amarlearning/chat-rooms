@@ -7,6 +7,7 @@
 > Real time public/private chat application using spring boot web-sockets
 
 ## Demo
+
 [![Spring Boot Websocket](https://www.amarpandey.me/img/spring-boot-websocket.png)](https://spring-ws-app.herokuapp.com/)
 
 ## Setup
@@ -14,13 +15,13 @@
 **1. Clone the application**
 
 ```bash
-git clone https://github.com/amarlearning/spring-boot-websocket.git
+git clone https://github.com/amarlearning/chat-rooms.git
 ```
 
 **2. Build and run the app using maven**
 
 ```bash
-cd spring-boot-websocket
+cd chat-rooms
 mvn package
 java -jar target/*.war
 ```
@@ -33,16 +34,16 @@ mvn spring-boot:run
 
 ## Issues
 
-You can report the bugs at the [issue tracker](https://github.com/amarlearning/spring-boot-websocket/issues)
+You can report the bugs at the [issue tracker](https://github.com/amarlearning/chat-rooms/issues)
 
 **OR**
 
 You can [tweet me](https://twitter.com/iamarpandey) if you can't get it to work. In fact, you should tweet me anyway.
 
-***
+---
 
 ## License
 
-Built with ♥ by Amar Prakash Pandey([@amarlearning](http://github.com/amarlearning)) under [MIT License](http://amarlearning.mit-license.org/) 
+Built with ♥ by Amar Prakash Pandey([@amarlearning](http://github.com/amarlearning)) under [MIT License](http://amarlearning.mit-license.org/)
 
 You can find a copy of the License at http://amarlearning.mit-license.org/
