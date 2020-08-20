@@ -27,10 +27,13 @@ mvn package
 java -jar target/*.war
 ```
 
-Alternatively, you can run the app directly without packaging it like so -
+Alternatively, you can run the app directly using Docker image -
 
 ```bash
-mvn spring-boot:run
+
+docker pull amarpandey/chat-rooms
+
+docker run -p 8080:8080 --name=chat-rooms-app chat-rooms
 ```
 
 ## Issues
