@@ -1,9 +1,11 @@
-FROM openjdk:8
+FROM maven:3-openjdk-8
 
-WORKDIR /java
+WORKDIR /chat-rooms
 
-ADD target/chat-rooms.jar chat-rooms.jar
+COPY . ./
+
+RUN mvn package
 
 EXPOSE 8080
 
-ENTRYPOINT [ "java", "-jar", "chat-rooms.jar" ]
+ENTRYPOINT [ "java", "-jar", "target/chat-rooms.jar" ]
