@@ -37,6 +37,6 @@ public class ChatController {
 	@Scheduled(fixedDelay = 1000)
 	public void sendAdhocMessage() {
 		// Send the updated user count to the chat.
-		template.convertAndSend("/topic/stats", ApplicationStats.userCount);
+		template.convertAndSend("/topic/stats", ApplicationStats.getUserCount());
 	}
 }

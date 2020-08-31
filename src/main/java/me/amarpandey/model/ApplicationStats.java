@@ -1,20 +1,29 @@
 package me.amarpandey.model;
 
-import java.util.concurrent.atomic.AtomicInteger;
-
 public class ApplicationStats {
 
-	public static AtomicInteger userCount = new AtomicInteger(0);
+	private static int userCount;
+	private static Object lock = new Object();
 
 	private ApplicationStats() {
 		throw new RuntimeException("No instance of this class");
 	}
 
 	public static void incrementUserCount() {
-			userCount.incrementAndGet();
+		synchronized (lock) {
+			userCount++;
+		}
 	}
 
 	public static void decrementUserCount() {
-			userCount.decrementAndGet();
+		synchronized (lock) {
+			userCount--;
+		}
+	}
+
+	public static int getUserCount() {
+		synchronized (lock) {
+			return userCount;
+		}
 	}
 }

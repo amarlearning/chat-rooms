@@ -2,26 +2,16 @@ package me.amarpandey;
 
 import me.amarpandey.model.ApplicationStats;
 import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.jupiter.api.RepeatedTest;
+import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.logging.SocketHandler;
 import java.util.stream.IntStream;
-
-import static java.util.Optional.of;
-
 
 public class ApplicationStatsTest {
 
-	@RepeatedTest(5)
+	@Test
 	public void test_incrementUserCount() throws InterruptedException {
-		IntStream stream1 = IntStream.range(0, 500);
-		IntStream stream2 = IntStream.range(0, 100);
-
-		ApplicationStats.userCount = new AtomicInteger(0);
+		IntStream stream1 = IntStream.range(0, 5000);
+		IntStream stream2 = IntStream.range(0, 5000);
 
 		Thread t1 = new Thread(new Runnable() {
 			@Override
@@ -47,7 +37,7 @@ public class ApplicationStatsTest {
 		t1.join();
 		t2.join();
 
-		Assert.assertEquals(400, ApplicationStats.userCount.intValue());
+		Assert.assertEquals(0, ApplicationStats.getUserCount());
 	}
 
 }
