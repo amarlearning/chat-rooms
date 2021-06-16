@@ -8,7 +8,7 @@
 
 ## Demo
 
-[![Spring Boot Websocket](https://www.amarpandey.me/img/spring-boot-websocket.png)](https://spring-ws-app.herokuapp.com/)
+[![Spring Boot Websocket](https://www.amarpandey.me/projects/images/spring-boot-websocket.png)](https://spring-ws-app.herokuapp.com/)
 
 ## Setup
 
